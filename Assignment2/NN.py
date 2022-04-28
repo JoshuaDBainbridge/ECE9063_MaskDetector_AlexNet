@@ -9,7 +9,8 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt 
 from sklearn.neural_network import MLPClassifier
 
-data = pd.read_csv('C:/Users/jdbai/Desktop/heart.csv')
+data = pd.read_csv('C:/Users/jdbai/Documents/GraduateSchool/Term3/ECE9063/Assignment2/heart.csv')
+#C:\Users\jdbai\Documents\GraduateSchool\Term3\ECE9063\Assignment2
 #Separate Data 
 x = data.drop('HeartDisease', axis =1)
 y = data['HeartDisease']
@@ -20,10 +21,10 @@ y_test.to_csv('C:/Users/jdbai/Desktop/y_test_svm.csv')
 data2 = pd.read_csv('C:/Users/jdbai/Desktop/y_test_svm.csv', index_col=False)
 new_test = data2['HeartDisease']
 
-#clf = MLPClassifier()
+clf = MLPClassifier(max_iter=800,hidden_layer_sizes=(121,), activation='relu',solver='sgd', learning_rate='adaptive')
 #clf = MLPClassifier(random_state=1, max_iter=300)
 #clf = MLPClassifier(hidden_layer_sizes=(100,2))
-clf = MLPClassifier(solver='lbfgs')
+#clf = MLPClassifier(solver='lbfgs')
 clf.fit(x_train, y_train)
 
 pred_Y_NN = clf.predict(x_test)
@@ -55,10 +56,6 @@ for x in range (len(new_test)):
             classified[1][0] += 1 #False Negative 
     else: 
         unclassified += 1
-
-plt.plot(y_test, 'ro')
-plt.plot(pred_Y_NN, 'bx')
-plt.show(); 
 
 HD_yes = 0
 HD_no = 0
